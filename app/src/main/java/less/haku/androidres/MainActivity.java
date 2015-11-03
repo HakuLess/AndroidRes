@@ -15,6 +15,9 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import less.haku.androidres.data.HttpCode;
+import less.haku.androidres.util.JsonUtil;
+
 public class MainActivity extends AppCompatActivity {
 
     public OkHttpClient client = new OkHttpClient();
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void run() throws Exception {
         Request request = new Request.Builder()
-                .url("http://10.11.1.26:8081/user-app/api/v1/home?an=com.wjwl.mobile.taocz&appid=210&av=6.5.0&cid=1&h=2560&sid=18047&time=1446435580537&u=a_866002025212761_94368186b1ef31ea_4.4.4_MX4%2BPro_Meizu&w=1536&sign=52FAA3978E1A691D676E4A49F61E7F45")
+                .url("http://api.bilibili.cn/list?type=json&tid=33&page=1&pagesize=10&order=default")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -57,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < responseHeaders.size(); i++) {
                     Log.d("ttttt", responseHeaders.name(i) + ": " + responseHeaders.value(i) + "\n");
                 }
+                HttpCode o = JsonUtil.json2Java(response.body().string(), HttpCode.class);
                 Log.d("tttttsss", response.body().string() + "\n");
+                Log.d("tttttsss", o.code + " " + o.error  + "\n");
             }
         });
     }
