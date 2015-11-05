@@ -1,22 +1,17 @@
 package less.haku.androidres;
 
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
-import java.io.IOException;
-
+import less.haku.androidres.data.Configuration;
 import less.haku.androidres.request.base.HKCallBack;
 import less.haku.androidres.request.base.HKOkHttpClient;
+import less.haku.androidres.util.JsonUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,23 +43,24 @@ public class MainActivity extends AppCompatActivity {
 //                .url("http://api.bilibili.cn/list?type=json&tid=33&page=1&pagesize=10&order=default")
                 .build();
 
-        client.newCall(request).enqueue(new HKCallBack() {
-//            @Override
-//            public void onFailure(Request request, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Response response) throws IOException {
-//                super.onResponse(response);
-//                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-//
-//                Headers responseHeaders = response.headers();
-//                for (int i = 0; i < responseHeaders.size(); i++) {
-//                    Log.d("ttttt", responseHeaders.name(i) + ": " + responseHeaders.value(i) + "\n");
-//                }
-//                Log.d("tttttsss", response.body().string() + "\n");
-//            }
+        client.newCall(request).enqueue(new HKCallBack(
+                new HKCallBack.IRequestListener<Object>() {
+                    @Override
+                    public void onSucceed(Object response) {
+                        Configuration configuration;
+                        configuration = JsonUtil.json2Java(response.toString(), Configuration.class);
+                        if (configuration == null) {
+                            return;
+                        }
+                        Log.d("config", configuration.customPhone);
+                    }
+
+                    @Override
+                    public void onFailed(int errCode, String message) {
+
+                    }
+                }
+        ) {
         });
     }
 }
