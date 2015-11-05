@@ -15,12 +15,12 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-import less.haku.androidres.data.HttpCode;
-import less.haku.androidres.util.JsonUtil;
+import less.haku.androidres.request.base.HKCallBack;
+import less.haku.androidres.request.base.HKOkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    public OkHttpClient client = new OkHttpClient();
+    public HKOkHttpClient client = new HKOkHttpClient();
     private ImageView imageView;
 
     @Override
@@ -42,28 +42,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void run() throws Exception {
+
         Request request = new Request.Builder()
-                .url("http://api.bilibili.cn/list?type=json&tid=33&page=1&pagesize=10&order=default")
+                .url("http://user.app.loukou.com/user-app/api/v1/user/configure?an=HKApp111")
+//                .url("http://api.bilibili.cn/list?type=json&tid=33&page=1&pagesize=10&order=default")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Response response) throws IOException {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                Headers responseHeaders = response.headers();
-                for (int i = 0; i < responseHeaders.size(); i++) {
-                    Log.d("ttttt", responseHeaders.name(i) + ": " + responseHeaders.value(i) + "\n");
-                }
-                HttpCode o = JsonUtil.json2Java(response.body().string(), HttpCode.class);
-                Log.d("tttttsss", response.body().string() + "\n");
-                Log.d("tttttsss", o.code + " " + o.error  + "\n");
-            }
+        client.newCall(request).enqueue(new HKCallBack() {
+//            @Override
+//            public void onFailure(Request request, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Response response) throws IOException {
+//                super.onResponse(response);
+//                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//
+//                Headers responseHeaders = response.headers();
+//                for (int i = 0; i < responseHeaders.size(); i++) {
+//                    Log.d("ttttt", responseHeaders.name(i) + ": " + responseHeaders.value(i) + "\n");
+//                }
+//                Log.d("tttttsss", response.body().string() + "\n");
+//            }
         });
     }
 }
