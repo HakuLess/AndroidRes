@@ -6,9 +6,9 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.okhttp.Request;
 
 import less.haku.androidres.data.Configuration;
+import less.haku.androidres.request.ConfigRequest;
 import less.haku.androidres.request.base.HKCallBack;
 import less.haku.androidres.request.base.HKOkHttpClient;
 import less.haku.androidres.util.JsonUtil;
@@ -37,13 +37,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void run() throws Exception {
+        ConfigRequest configRequest = new ConfigRequest();
 
-        Request request = new Request.Builder()
-                .url("http://user.app.loukou.com/user-app/api/v1/user/configure?an=HKApp111")
-//                .url("http://api.bilibili.cn/list?type=json&tid=33&page=1&pagesize=10&order=default")
-                .build();
-
-        client.newCall(request).enqueue(new HKCallBack(
+        client.newCall(configRequest.request).enqueue(new HKCallBack(
                 new HKCallBack.IRequestListener<Object>() {
                     @Override
                     public void onSucceed(Object response) {
