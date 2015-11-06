@@ -1,23 +1,20 @@
 package less.haku.androidres;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import less.haku.androidres.common.BaseActivity;
 import less.haku.androidres.data.Configuration;
 import less.haku.androidres.request.ConfigRequest;
-import less.haku.androidres.request.base.HKCallBack;
-import less.haku.androidres.request.base.HKOkHttpClient;
 import less.haku.androidres.request.base.HOkHttpClient;
-import less.haku.androidres.util.JsonUtil;
 
-public class MainActivity extends AppCompatActivity {
-
-    public HKOkHttpClient client = new HKOkHttpClient();
-    private HOkHttpClient hClient = new HOkHttpClient();
+public class MainActivity extends BaseActivity {
     private ImageView imageView;
 
     @Override
@@ -31,18 +28,28 @@ public class MainActivity extends AppCompatActivity {
                 .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
                 .into(imageView);
 
-        sendConfigRequest();
+        imageView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        requestConfig();
+                    }
+                }
+        );
+        requestConfig();
     }
 
-    public void sendConfigRequest() {
-        ConfigRequest configRequest = new ConfigRequest();
+    public void requestConfig() {
 
-        hClient.sendRequest(configRequest, new HOkHttpClient.IRequestListener<Configuration>() {
+        final ConfigRequest configRequest = new ConfigRequest();
+
+        sendJsonRequest(configRequest, new HOkHttpClient.IRequestListener<Configuration>() {
             @Override
             public void onSucceed(Configuration configuration) {
                 if (configuration == null) {
                     return;
                 }
+                showToast(configuration.domainName);
                 Log.d("config", configuration.customPhone);
                 Log.d("config", configuration.domainName);
             }

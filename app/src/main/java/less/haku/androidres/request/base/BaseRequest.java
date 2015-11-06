@@ -7,7 +7,9 @@ import org.json.JSONObject;
  */
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
+import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Request;
 
 import java.util.HashMap;
@@ -18,6 +20,7 @@ public class BaseRequest {
     public Request request;
     public String url;
     public Class<?> outCls;
+    public Call call;
 
     /**
      * 给 URL 拼接公共参数

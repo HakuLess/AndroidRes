@@ -1,6 +1,11 @@
 package less.haku.androidres.request.base;
 
+import android.app.Application;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -12,24 +17,35 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import less.haku.androidres.data.Configuration;
+import less.haku.androidres.application.HApplication;
 import less.haku.androidres.util.JsonUtil;
 
 /**
  * Created by HaKu on 15/11/6.
  */
-public class HOkHttpClient{
+public class HOkHttpClient {
 
     private static int SUCCESS_CODE = 200;
     private JSONObject object;
     private OkHttpClient client = new OkHttpClient();
+    private static HOkHttpClient _instance;
+    private Handler handler;
 
     public HOkHttpClient() {
+        handler = new Handler(Looper.getMainLooper());
+    }
+
+    public static HOkHttpClient instance(Application application) {
+        if (_instance == null) {
+            _instance = new HOkHttpClient();
+        }
+        return _instance;
     }
 
     public void sendRequest(final BaseRequest baseRequest, final IRequestListener listener) {
         Log.d("send request", baseRequest.request.urlString());
-        client.newCall(baseRequest.request).enqueue(new Callback() {
+        baseRequest.call = client.newCall(baseRequest.request);
+        baseRequest.call.enqueue(new Callback() {
             @Override
             public void onResponse(Response response) throws IOException {
                 try {
@@ -37,26 +53,38 @@ public class HOkHttpClient{
                 } catch (JSONException e) {
 
                 }
-                int code = object.optInt("code");
-                String message = object.optString("message");
+                final int code = object.optInt("code");
+                final String message = object.optString("message");
                 if (code == SUCCESS_CODE) {
                     //请求成功，进行具体处理
                     Log.d("request success", object.toString());
-                    String obj = object.optString("result");
+                    final String obj = object.optString("result");
 
-                    if (obj != null) {
-                        listener.onSucceed(JsonUtil.json2Java(obj, baseRequest.outCls));
-                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (obj != null) {
+                                listener.onSucceed(JsonUtil.json2Java(obj, baseRequest.outCls));
+                            }
+                        }
+                    });
+
+
                 } else {
                     //请求错误，进行具体处理
                     Log.d("request error", object.toString());
-                    listener.onFailed(code, message);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFailed(code, message);
+                        }
+                    });
                 }
             }
 
             @Override
             public void onFailure(Request request, IOException e) {
-                    Log.d("request failed", request.urlString());
+                Log.d("request failed", request.urlString());
             }
         });
     }
