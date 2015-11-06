@@ -13,6 +13,5 @@ public class TestRequest extends JsonRequest{
     }
 
     public TestRequest(Context context,Input input, Class<String> cls) {
-        super(context);
     }
 }

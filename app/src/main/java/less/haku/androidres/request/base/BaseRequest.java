@@ -6,36 +6,51 @@ import org.json.JSONObject;
  * Created by HaKu on 15/11/5.
  */
 import android.content.Context;
+import android.net.Uri;
+
+import com.squareup.okhttp.Request;
+
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class BaseRequest {
-    protected int method;
-    protected String url;
-    protected String encryptUrl;
-    protected JSONObject jsonObj = new JSONObject();
-    protected HashMap<String, String> paramsMap;
-    protected HashMap<String, String> headers;
-    protected Context context;
-    protected int successCode;
-    protected int retry = 2;
-    protected int timeout = 5000;
-    protected Class<?> outCls;
+    public Request request;
+    public String url;
+    public Class<?> outCls;
 
-    public BaseRequest(Context context) {
-        this.context = context;
-        this.headers = new HashMap();
-        this.headers.put("Charset", "UTF-8");
+    /**
+     * 给 URL 拼接公共参数
+     * @param url
+     * @return 添加公共参数的 URL
+     */
+    protected String addPublicParam(String url) {
+        HashMap<String, String> publicParam = getPublicParam();
+        Uri.Builder builder = Uri.parse(url).buildUpon();
+        Iterator<Map.Entry<String, String>> iter = publicParam.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry<String, String> entry = (Map.Entry<String, String>)iter.next();
+            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+        }
+
+        return builder.build().toString();
     }
 
-    protected void setOutClass(Class<?> outCls) {
-        this.outCls = outCls;
-    }
-
+    /**
+     * 网络请求公共参数获取*/
     protected HashMap<String, String> getPublicParam() {
-        return null;
-    }
-
-    protected String encryptUrl(String url) {
-        return url;
+        /**
+         * 公共参数初始化
+         * @param uid 用户id
+         * @param cid 城市id
+         * @param u 设备唯一标示
+         * @param w 屏幕宽
+         * @param h 屏幕高
+         * @param an app名称
+         * @param av app版本
+         * @param sid storeId*/
+        HashMap<String, String> params = new HashMap<>();
+        params.put("an", "HKApp");
+        return params;
     }
 }
