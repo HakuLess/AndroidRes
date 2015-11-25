@@ -39,7 +39,7 @@ public class DoubanListItem extends LinearLayout {
 
     public void update(Book book) {
         Glide.with(getContext())
-        .load(book.image)
-        .into(imageView);
+            .load(book.image)
+            .into(imageView);
     }
 }
