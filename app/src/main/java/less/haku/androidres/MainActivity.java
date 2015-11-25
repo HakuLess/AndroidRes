@@ -1,8 +1,7 @@
 package less.haku.androidres;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,15 +27,18 @@ public class MainActivity extends BaseActivity {
                 .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
                 .into(imageView);
 
+        final Intent intent = new Intent(MainActivity.this, DouBanActivity.class);
+        //使用统一ImageView
         imageView.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        requestConfig();
+//                        requestConfig();
+                        startActivity(intent);
                     }
                 }
         );
-        requestConfig();
+//        requestConfig();
     }
 
     public void requestConfig() {

@@ -1,11 +1,9 @@
 package less.haku.androidres.request.base;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -17,7 +15,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import less.haku.androidres.application.HApplication;
 import less.haku.androidres.util.JsonUtil;
 
 /**
@@ -53,6 +50,16 @@ public class HOkHttpClient {
                 } catch (JSONException e) {
 
                 }
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (object != null) {
+                            listener.onSucceed(JsonUtil.json2Java(object, baseRequest.outCls));
+                        }
+                    }
+                });
+
                 final int code = object.optInt("code");
                 final String message = object.optString("message");
                 if (code == SUCCESS_CODE) {
