@@ -1,12 +1,12 @@
 package less.haku.androidres;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,6 +19,7 @@ import less.haku.androidres.data.Book;
 import less.haku.androidres.data.DoubanBook;
 import less.haku.androidres.request.DouBanRequest;
 import less.haku.androidres.request.base.HOkHttpClient;
+import less.haku.androidres.util.ListAdapter;
 import less.haku.androidres.widget.DoubanListItem;
 
 /**
@@ -27,12 +28,13 @@ import less.haku.androidres.widget.DoubanListItem;
 public class DouBanActivity extends BaseActivity {
 
     private String key;
-    private EditText editText;
+    private EditText searchEdit;
     private Button searchButton;
     private ListView doubanList;
     private DoubanBook doubanBook;
     private BookListAdapter bookListAdapter;
     private List<Book> bookList;
+    private int size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +46,29 @@ public class DouBanActivity extends BaseActivity {
 
     //初始化UI控件
     private void initViews() {
-        editText = (EditText) this.findViewById(R.id.douban_search_key);
+        searchEdit = (EditText) this.findViewById(R.id.douban_search_key);
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                clearData();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         searchButton = (Button) this.findViewById(R.id.douban_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //进行搜索
-                key = editText.getText().toString();
-                if (!TextUtils.isEmpty(key)) {
-                    searchByKey(key);
-                }
+                searchByKey();
             }
         });
 
@@ -63,22 +78,35 @@ public class DouBanActivity extends BaseActivity {
         doubanList.setAdapter(bookListAdapter);
     }
 
-    private Handler handler;
+    //改变关键字，清空结果集合以及size
+    private void clearData() {
+        size = 0;
+        bookList.clear();
+    }
+
     /**
      * 通过关键字搜索
      * */
-    private void searchByKey(String key) {
-
-        final DouBanRequest douBanRequest = new DouBanRequest(key);
+    private void searchByKey() {
+        String key = searchEdit.getText().toString();
+        final DouBanRequest douBanRequest = new DouBanRequest(key, size);
         sendJsonRequest(douBanRequest, new HOkHttpClient.IRequestListener<DoubanBook>() {
             @Override
             public void onSucceed(DoubanBook doubanBook) {
-                showToast("1111111");
                 if (doubanBook == null) {
                     return;
                 }
-                bookList = doubanBook.books;
-                showToast(doubanBook.books.size() + "");
+
+                if (doubanBook.books == null) {
+                    return;
+                }
+                size += doubanBook.books.size();
+                if (doubanBook.books.size() == 0) {
+                    isEnd = true;
+                } else {
+                    isEnd = false;
+                }
+                bookList.addAll(doubanBook.books);
                 bookListAdapter.notifyDataSetChanged();
             }
 
@@ -87,60 +115,20 @@ public class DouBanActivity extends BaseActivity {
                 Log.d("error", "on failed");
             }
         });
-
-//        OkHttpClient mOkHttpClient = new OkHttpClient();
-//        //创建一个Request
-//        final Request request = new Request.Builder()
-//                .url("https://api.douban.com/v2/book/search?q=" + key)
-//                .build();
-//        //new call
-//        Call call = mOkHttpClient.newCall(request);
-//        //请求加入调度
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Request request, IOException e) {
-//            }
-//
-//            @Override
-//            public void onResponse(final Response response) throws IOException {
-//                final JSONObject object;
-//                try {
-//                    object = new JSONObject(response.body().string());
-//                    doubanBook = JsonUtil.json2Java(object, DoubanBook.class);
-//                    //String htmlStr =  response.body().string();
-//                    bookList = doubanBook.books;
-//                    Log.d("config", doubanBook.books.size() + "");
-//                    Log.d("config", doubanBook.start + "");
-//
-//
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            showToast(doubanBook.books.size() + "");
-//                            bookListAdapter.notifyDataSetChanged();
-//                        }
-//                    });
-//
-////                    showToast(doubanBook.books.size() + "");
-////                    bookListAdapter.notifyDataSetChanged();
-//
-//                } catch (JSONException e) {
-//
-//                }
-//
-//            }
-//        });
     }
 
     private DoubanListItem doubanListItem;
+    private boolean isEnd = false;
     /**
      * 豆瓣图书列表适配器
      * */
-    class BookListAdapter extends BaseAdapter {
-
+    class BookListAdapter extends ListAdapter {
         @Override
         public int getCount() {
-            return bookList.size();
+            if (bookList.size() == 0) {
+                return 0;
+            }
+            return bookList.size() +  + (isEnd ? 0 : 1);
         }
 
         @Override
@@ -156,7 +144,14 @@ public class DouBanActivity extends BaseActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
-            if (null == convertView) {
+            if (position == bookList.size()) {
+                searchByKey();
+                return getLoadingItem(parent,"加载中");
+            } else if (position > bookList.size()) {
+                return null;
+            }
+
+            if (null == convertView || !(convertView instanceof DoubanListItem)) {
                 doubanListItem = new DoubanListItem(DouBanActivity.this);
             } else {
                 doubanListItem = (DoubanListItem) convertView;
@@ -166,7 +161,10 @@ public class DouBanActivity extends BaseActivity {
             doubanListItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showToast("ID号：" + bookList.get(position).id);
+                    Intent detailIntent = new Intent(DouBanActivity.this, BookDetailActivity.class);
+                    detailIntent.putExtra("id", bookList.get(position).id);
+                    startActivity(detailIntent);
+//                    showToast("ID号：" + bookList.get(position).id);
                 }
             });
             convertView = doubanListItem;

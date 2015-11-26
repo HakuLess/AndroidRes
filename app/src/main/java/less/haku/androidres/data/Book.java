@@ -7,4 +7,5 @@ public class Book {
     public String image;
     public String id;
     public String url;
+    public String title;
 }
