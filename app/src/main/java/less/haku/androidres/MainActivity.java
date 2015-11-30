@@ -27,7 +27,8 @@ public class MainActivity extends BaseActivity {
                 .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
                 .into(imageView);
 
-        final Intent intent = new Intent(MainActivity.this, DouBanActivity.class);
+//        final Intent intent = new Intent(MainActivity.this, DouBanActivity.class);
+        final Intent intent = new Intent(MainActivity.this, SurfaceActivity.class);
         //使用统一ImageView
         imageView.setOnClickListener(
                 new View.OnClickListener() {
