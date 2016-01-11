@@ -1,6 +1,5 @@
 package less.haku.androidres.common;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -21,8 +20,8 @@ import java.util.ArrayList;
 
 import less.haku.androidres.application.HApplication;
 import less.haku.androidres.request.base.BaseRequest;
-import less.haku.androidres.request.base.HKCallBack;
 import less.haku.androidres.request.base.HOkHttpClient;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by HaKu on 15/11/6.
@@ -30,6 +29,8 @@ import less.haku.androidres.request.base.HOkHttpClient;
  * 在创建或销毁时，会通知Application，方便app生命周期管理
  */
 public class BaseActivity extends AppCompatActivity {
+
+    protected CompositeSubscription compositeSubscription;
 
     protected boolean isDestoryed;      //标识此Activity是否已销毁
     //持有当前json请求，activity销毁时，遍历并cancel掉所有请求
@@ -40,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v("Activity : ", "Start Activity: " + this.getClass().getName());
+        compositeSubscription = new CompositeSubscription();
     }
 
     @Override
@@ -54,6 +56,8 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        compositeSubscription.unsubscribe();
+
         isDestoryed = true;
         Log.v("Activity : ", this.getClass().getName());
         if (listJsonRequest != null) { //遍历取消所有请求

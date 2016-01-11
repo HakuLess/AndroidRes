@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:id="@+id/item_func"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    cardview:contentPadding="4dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    cardview:cardBackgroundColor="@color/peru"
+    cardview:cardCornerRadius="10dp"
+    cardview:cardElevation="10dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/item_func_txt"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        tools:text="跳转功能"/>
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--</LinearLayout>-->
+</android.support.v7.widget.CardView>
