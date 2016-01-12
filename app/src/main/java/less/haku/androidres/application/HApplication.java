@@ -1,6 +1,10 @@
 package less.haku.androidres.application;
 
 import android.app.Application;
+import android.util.Log;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by HaKu on 15/11/6.
@@ -19,5 +23,14 @@ public class HApplication extends Application{
 
     public HApplication() {
         _instance = this;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d("init", "初始化应用");
+
+        Fresco.initialize(this);
+        LeakCanary.install(this);
     }
 }

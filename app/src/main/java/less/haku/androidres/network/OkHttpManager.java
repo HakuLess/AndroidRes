@@ -7,6 +7,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 /**
  * Created by HaKu on 15/11/5.
+ * okHttp单例
  */
 public class OkHttpManager {
     private OkHttpClient okHttpClient;
