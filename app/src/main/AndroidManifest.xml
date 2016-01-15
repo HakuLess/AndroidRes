@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
+        <!--DEBUG 版本号（展示时间）-->
         <meta-data android:name="DEBUG_VERSION"
             android:value="${DEBUG_VERSION_VALUE}" />
 
@@ -55,6 +56,20 @@
 
                 <data
                     android:host="imageCompare"
+                    android:scheme="haku" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".core.activity.CollapsingActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="collapsingToolbarLayout"
                     android:scheme="haku" />
             </intent-filter>
         </activity>

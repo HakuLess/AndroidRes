@@ -44,7 +44,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-//        compositeSubscription = new CompositeSubscription();
 
         showTime = 3L;   //总等待时间，使用大写L，便于与数字1区分
         //初始化UI
@@ -58,11 +57,6 @@ public class SplashActivity extends BaseActivity {
      */
     private void initDebugVersion() {
         try {
-//            ActivityInfo info = this.getPackageManager()
-//                    .getActivityInfo(getComponentName(),
-//                            PackageManager.GET_META_DATA);
-//            String msg =info.metaData.getString("DEBUG_VERSION");
-
             ApplicationInfo appInfo = HApplication.instance().getPackageManager()
                     .getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
 
@@ -131,6 +125,5 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ButterKnife.unbind(this);
     }
 }

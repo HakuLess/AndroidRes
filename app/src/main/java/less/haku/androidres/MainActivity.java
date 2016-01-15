@@ -2,16 +2,12 @@ package less.haku.androidres;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import less.haku.androidres.common.BaseActivity;
-import less.haku.androidres.data.Configuration;
-import less.haku.androidres.request.ConfigRequest;
-import less.haku.androidres.request.base.HOkHttpClient;
 
 public class MainActivity extends BaseActivity {
     private ImageView imageView;
@@ -40,27 +36,5 @@ public class MainActivity extends BaseActivity {
                 }
         );
 //        requestConfig();
-    }
-
-    public void requestConfig() {
-
-        final ConfigRequest configRequest = new ConfigRequest();
-
-        sendJsonRequest(configRequest, new HOkHttpClient.IRequestListener<Configuration>() {
-            @Override
-            public void onSucceed(Configuration configuration) {
-                if (configuration == null) {
-                    return;
-                }
-                showToast(configuration.domainName);
-                Log.d("config", configuration.customPhone);
-                Log.d("config", configuration.domainName);
-            }
-
-            @Override
-            public void onFailed(int errCode, String errMsg) {
-
-            }
-        });
     }
 }

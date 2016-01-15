@@ -51,6 +51,11 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "图片加载对比";
         func.uri = "haku://imageCompare";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "收缩Toolbar";
+        func.uri = "haku://collapsingToolbarLayout";
+        funcList.add(func);
     }
 
     /**
