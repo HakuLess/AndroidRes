@@ -20,6 +20,7 @@ import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by HaKu on 16/1/11.
@@ -93,6 +94,7 @@ public class SplashActivity extends BaseActivity {
 
         //订阅事件，每秒判断一次是否进入APP，并刷新UI展示
         Subscription subscription = Observable.interval(TIME_SECOND, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Long>() {
                     @Override

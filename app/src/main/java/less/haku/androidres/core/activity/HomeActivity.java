@@ -56,6 +56,11 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "收缩Toolbar";
         func.uri = "haku://collapsingToolbarLayout";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "自定义Banner轮播";
+        func.uri = "haku://banner";
+        funcList.add(func);
     }
 
     /**
