@@ -58,8 +58,18 @@ public class HomeActivity extends BaseActivity {
         funcList.add(func);
 
         func = new Func();
+        func.funcName = "抽屉DrawerLayout";
+        func.uri = "haku://drawerlayout";
+        funcList.add(func);
+
+        func = new Func();
         func.funcName = "自定义Banner轮播";
         func.uri = "haku://banner";
+        funcList.add(func);
+
+        func = new Func();
+        func.funcName = "定位功能";
+        func.uri = "haku://location";
         funcList.add(func);
     }
 
