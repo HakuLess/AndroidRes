@@ -71,6 +71,11 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "定位功能";
         func.uri = "haku://location";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "badge功能";
+        func.uri = "haku://badge";
+        funcList.add(func);
     }
 
     /**
