@@ -1,5 +1,8 @@
 # AndroidRes
 android各种功能集合库，测试各种代码，并方便快速查找
+首页即为功能列表
+
+![首页截图](https://github.com/HakuLess/ImageLib/blob/master/blog/android_res_main.png?raw=true =200x400)
 
 1. 封装okhttp请求，通过baseRequest添加公共参数
 2. 通过Gson解析json，反序列化
