@@ -1,11 +1,14 @@
 package less.haku.androidres.core.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +65,22 @@ public class CollapsingActivity extends BaseActivity {
         viewDemoList = new ArrayList<>();
         initDemo();
 
+        try {
+            Field field = TabLayout.class.getDeclaredField("mTabStrip");
+            field.setAccessible(true);
+            Object ob = field.get(tabLayout);
+            Class<?> c = Class.forName("android.support.design.widget.TabLayout$SlidingTabStrip");
+            Method method = c.getDeclaredMethod("setSelectedIndicatorColor", int.class);
+            method.setAccessible(true);
+            method.invoke(ob, Color.RED);
+        } catch (Exception e) {
+
+        }
+
+
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     public void initDemo() {

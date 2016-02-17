@@ -203,6 +203,7 @@
                     android:scheme="haku" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
