@@ -56,6 +56,24 @@ dependencies {
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
     compile files('libs/BaiduLBS_Android.jar')
+
+//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.4.5.1'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.5.1'
+
+//    compile project(':ijkplayer-java')
+//    compile project(':ijkplayer-exo')
+    compile project(':ijkplayer-sample')
+
+//    all32Compile project(':ijkplayer-armv5')
+//    all32Compile project(':ijkplayer-armv7a')
+//    all32Compile project(':ijkplayer-x86')
+//
+//    all64Compile project(':ijkplayer-armv5')
+//    all64Compile project(':ijkplayer-armv7a')
+//    all64Compile project(':ijkplayer-arm64')
+//    all64Compile project(':ijkplayer-x86')
+//    all64Compile project(':ijkplayer-x86_64')
+
 }
 
 def siteUrl = 'https://github.com/HakuLess/AndroidRes'      // 项目的主页
