@@ -81,13 +81,17 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "ijkplayer";
         func.uri = "haku://ijkplayer";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "jniDemo";
+        func.uri = "haku://jni";
+        funcList.add(func);
     }
 
     /**
      * 初始化UI
      * */
     public void init () {
-
         homeFunAdapter = new HomeFunAdapter(this);
         homeFunctionList.setAdapter(homeFunAdapter);
 
