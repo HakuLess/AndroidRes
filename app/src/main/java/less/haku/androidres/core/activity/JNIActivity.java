@@ -27,6 +27,7 @@ public class JNIActivity extends BaseActivity {
     }
 
     private void init() {
-        jniText.setText(JNIUtil.getStringFormC());
+        jniText.setText(JNIUtil.getStringFormC()
+                + JNIUtil.getStringWithPara("test"));
     }
 }

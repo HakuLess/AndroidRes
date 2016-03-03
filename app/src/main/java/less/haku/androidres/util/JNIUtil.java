@@ -9,4 +9,6 @@ public class JNIUtil {
         System.loadLibrary("JniDemo");
     }
     public static native String getStringFormC();
+
+    public static native String getStringWithPara(String s);
 }

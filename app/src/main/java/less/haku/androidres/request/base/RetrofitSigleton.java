@@ -50,6 +50,10 @@ public class RetrofitSigleton {
         public Response intercept(Chain chain) throws IOException {
             Request request = chain.request();
 
+//            Request originalRequest = chain.request();
+//            HttpUrl url = originalRequest.url().newBuilder().addQueryParameter("id", "value").build();
+//            return chain.proceed(originalRequest.newBuilder().url(url).build());
+
             long t1 = System.nanoTime();
 
             //可以添加公共参数 增加校验签名等

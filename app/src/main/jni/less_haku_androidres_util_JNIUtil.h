@@ -15,6 +15,9 @@ extern "C" {
 JNIEXPORT jstring JNICALL Java_less_haku_androidres_util_JNIUtil_getStringFormC
   (JNIEnv *, jclass);
 
+JNIEXPORT jstring JNICALL Java_less_haku_androidres_util_JNIUtil_getStringWithPara
+        (JNIEnv *, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif
