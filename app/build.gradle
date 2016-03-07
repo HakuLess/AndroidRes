@@ -20,10 +20,10 @@ android {
         versionName "1.0"
         manifestPlaceholders = [DEBUG_VERSION_VALUE:"测试版本号:Android_${releaseTime()}"]
 
-        ndk {
-            moduleName "JniDemo"
-            abiFilters "armeabi", "armeabi-v7a", "x86"
-        }
+//        ndk {
+//            moduleName "JniDemo"
+//            abiFilters "armeabi", "armeabi-v7a", "x86"
+//        }
     }
 
     buildTypes {

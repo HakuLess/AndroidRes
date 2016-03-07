@@ -86,6 +86,11 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "jniDemo";
         func.uri = "haku://jni";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "launchMode";
+        func.uri = "haku://launchmode";
+        funcList.add(func);
     }
 
     /**

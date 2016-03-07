@@ -7,7 +7,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import less.haku.androidres.R;
 import less.haku.androidres.common.BaseActivity;
-import less.haku.androidres.util.JNIUtil;
 
 /**
  * Created by HaKu on 16/3/1.
@@ -27,7 +26,7 @@ public class JNIActivity extends BaseActivity {
     }
 
     private void init() {
-        jniText.setText(JNIUtil.getStringFormC()
-                + JNIUtil.getStringWithPara("test"));
+//        jniText.setText(JNIUtil.getStringFormC()
+//                + JNIUtil.getStringWithPara("test"));
     }
 }

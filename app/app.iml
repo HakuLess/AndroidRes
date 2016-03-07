@@ -116,6 +116,7 @@
     <orderEntry type="library" exported="" name="haha-1.3" level="project" />
     <orderEntry type="library" exported="" name="okio-1.6.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
+    <orderEntry type="library" exported="" name="DanmakuFlameMaster" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.6.0" level="project" />
     <orderEntry type="library" exported="" name="fbcore-0.8.1" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.1.1" level="project" />
@@ -126,8 +127,8 @@
     <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
     <orderEntry type="library" exported="" name="BaiduLBS_Android" level="project" />
     <orderEntry type="library" exported="" name="drawee-0.8.1" level="project" />
-    <orderEntry type="library" exported="" name="converter-gson-2.0.0-beta1" level="project" />
     <orderEntry type="library" exported="" name="glide-3.6.1" level="project" />
+    <orderEntry type="library" exported="" name="converter-gson-2.0.0-beta1" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="adapter-rxjava-2.0.0-beta1" level="project" />

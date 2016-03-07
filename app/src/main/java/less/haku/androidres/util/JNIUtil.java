@@ -5,10 +5,10 @@ package less.haku.androidres.util;
  * 测试JNI
  */
 public class JNIUtil {
-    static {
-        System.loadLibrary("JniDemo");
-    }
-    public static native String getStringFormC();
-
-    public static native String getStringWithPara(String s);
+//    static {
+//        System.loadLibrary("JniDemo");
+//    }
+//    public static native String getStringFormC();
+//
+//    public static native String getStringWithPara(String s);
 }
