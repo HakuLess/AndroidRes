@@ -44,6 +44,24 @@ public class RetrofitSigleton {
         return retrofit;
     }
 
+    private volatile static Retrofit commentRetrofit;
+//    http://comment.bilibili.com/3885454.xml
+    public static Retrofit getBiliCommentSingleton() {
+        if (commentRetrofit == null) {
+            synchronized (Retrofit.class) {
+                if (commentRetrofit == null) {
+                    commentRetrofit = new Retrofit.Builder()
+                            .baseUrl("http://comment.bilibili.com/")
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .build();
+                }
+            }
+        }
+
+        commentRetrofit.client().interceptors().add(new LoggingInterceptor());
+        return commentRetrofit;
+    }
 
     static class LoggingInterceptor implements Interceptor {
         @Override

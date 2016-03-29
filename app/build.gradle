@@ -60,6 +60,7 @@ dependencies {
     compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta1'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
+    compile 'com.github.ctiao:dfm:0.4.1'
     compile files('libs/BaiduLBS_Android.jar')
 
     compile 'com.github.ctiao:dfm:0.4.1'

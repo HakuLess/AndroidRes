@@ -91,6 +91,11 @@ public class HomeActivity extends BaseActivity {
         func.funcName = "launchMode";
         func.uri = "haku://launchmode";
         funcList.add(func);
+
+        func = new Func();
+        func.funcName = "customwidget";
+        func.uri = "haku://customwidget";
+        funcList.add(func);
     }
 
     /**

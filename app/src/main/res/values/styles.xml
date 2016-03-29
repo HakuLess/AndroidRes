@@ -11,4 +11,28 @@
         <!--<item name="colorAccent">@color/colorAccent</item>-->
     <!--</style>-->
 
+    <declare-styleable name="NumberProgress">
+        <!-- 文字大小 -->
+        <attr name="textSize" format="dimension"/>
+        <!-- 文字颜色 -->
+        <attr name="textColor" format="color"/>
+        <!-- reached的高度 -->
+        <attr name="reachedHeight" format="dimension"/>
+        <!-- reached的颜色 -->
+        <attr name="reachedColor" format="color"/>
+        <!-- unReached的高度 -->
+        <attr name="unReachedHeight" format="dimension"/>
+        <!-- unReached的颜色 -->
+        <attr name="unReachedColor" format="color"/>
+        <!-- 当前进度 -->
+        <attr name="currentProgress" format="integer"/>
+        <!-- 总进度 -->
+        <attr name="maxProgress" format="integer"/>
+        <!-- unProgress颜色 -->
+        <attr name="unProgressColor" format="color"/>
+        <!-- progress颜色 -->
+        <attr name="progressColor" format="color"/>
+        <!-- progress宽度 -->
+        <attr name="progressWidth" format="dimension"/>
+    </declare-styleable>
 </resources>
