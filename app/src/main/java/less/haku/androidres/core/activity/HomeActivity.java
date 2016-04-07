@@ -48,6 +48,11 @@ public class HomeActivity extends BaseActivity {
         funcList.add(func);
 
         func = new Func();
+        func.funcName = "QRCode";
+        func.uri = "haku://qr";
+        funcList.add(func);
+
+        func = new Func();
         func.funcName = "图片加载对比";
         func.uri = "haku://imageCompare";
         funcList.add(func);
